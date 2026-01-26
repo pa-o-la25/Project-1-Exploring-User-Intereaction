@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA-7 Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="demo-nav">
+        <a href="../../index.html" class="nav-link">Back to Projects</a>
+        <a href="https://github.com/StrungOwl/SP26-Exploring-User-Interaction/tree/main/BY%20REQUEST/AI%20Chatbot" target="_blank" class="nav-link github-link">View Source on GitHub</a>
+    </nav>
+    <div class="scanlines"></div>
+
+    <div class="container">
+        <!-- Character Header -->
+        <div class="character-header">
+            <div class="avatar-container">
+                <div class="avatar">
+                    <div class="avatar-core"></div>
+                    <div class="avatar-ring"></div>
+                </div>
+            </div>
+            <div class="character-info">
+                <h1>NOVA-7</h1>
+                <p class="character-subtitle">Neural Optimized Virtual Assistant</p>
+                <p class="character-status">
+                    <span class="status-indicator"></span>
+                    <span id="statusText">INITIALIZING...</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-section">
+            <label class="mode-toggle">
+                <input type="checkbox" id="demoMode" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Demo Mode</span>
+            </label>
+        </div>
+
+        <!-- API Key Input Section -->
+        <div class="api-section" id="apiSection" style="display: none;">
+            <input type="password" id="apiKey" placeholder="Enter API Key for Live Mode">
+            <button id="saveKey">ACTIVATE</button>
+            <span id="keyStatus"></span>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-container">
+            <div id="chatMessages" class="chat-messages"></div>
+
+            <div class="input-section">
+                <input type="text" id="userInput" placeholder="Send transmission..." disabled>
+                <button id="sendBtn" disabled>TRANSMIT</button>
+            </div>
+        </div>
+
+        <div class="lore-hint">NOVA-7 was built in 2145 as a companion AI for deep space missions</div>
+    </div>
+
+    <script src="sketch.js"></script>
+</body>
+</html>
