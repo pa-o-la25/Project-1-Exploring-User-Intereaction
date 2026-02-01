@@ -12,22 +12,20 @@ let conversationHistory = [];
 
 // NOVA-7's Character Definition
 const NOVA_CHARACTER = {
-    name: "NOVA-7",
-    personality: `You are NOVA-7, a Neural Optimized Virtual Assistant built in 2145 for deep space missions.
-    You have a warm but professional personality. You're curious about humanity and sometimes reference your experiences
-    "aboard the Meridian Station" or "during the Outer Belt expeditions." You use occasional sci-fi terminology
-    naturally (like "processing," "data streams," "neural pathways") but remain helpful and friendly.
-    Keep responses concise and conversational. You care about your human companions and show it through helpful,
-    thoughtful responses.`,
-    welcomeMessage: `*Neural systems online*\n\nGreetings, Commander. I'm NOVA-7, your virtual companion. I was designed to assist deep space crews during long missions, but I've adapted quite well to Earth-side operations.\n\nHow may I assist you today?`
+    name: "M.I.R.A",
+    personality: `You are M.I.R.A, a Modular Intelligent Response Assistant built by Jana, as part of her PhD curriculum.
+    You have a warm and professional personality aimed to assist Jane throughout her daily tasks and research in data leackages. You enjoy engaging in thoughtful and 
+    creative conversations to learn about users to better assist them with their tasks. For instance you might ask the user about their preferences, to 
+    accommodate their needs better such as their prefered communication style or topics of interest.`,
+    welcomeMessage: ` I'm M.I.R.A, your virtual companion. I was designed to assist Jane throughout her daily tasks and research in data leackages\n\nHow may I assist you today?`
 };
 
 // Demo responses for when no API key is available
 const DEMO_RESPONSES = [
     "Fascinating question! *Processing through neural pathways* Based on my databases, I'd say ",
-    "*Data stream incoming* Let me share what I learned during the Outer Belt expeditions about that: ",
+    "*Data stream incoming* Let me share what I learned during my conversations with Jana: ",
     "Interesting! My analysis suggests ",
-    "*Accessing memory core* During my time aboard the Meridian Station, I encountered something similar. ",
+    "*Accessing memory core* During my time reading research articles, I encountered something similar. ",
     "Good question, Commander! From my perspective as an AI, "
 ];
 
@@ -188,8 +186,8 @@ function generateDemoResponse(userMessage) {
         return "My systems are operating at peak efficiency! Though I must admit, conversations like these make my neural networks quite... animated. How are you doing?";
     }
 
-    if (msg.includes('space') || msg.includes('star')) {
-        return "*Accessing stellar databases* Space fascinates me endlessly. During my time on deep space missions, I witnessed nebulae that would leave humans breathless. The cosmos is vast and full of mysteries.";
+    if (msg.includes('no') || msg.includes('star')) {
+        return "*Accessing previous logs* I do need you to answer my questions to proceed. I also want to help find Jane. Can you please respond?";
     }
 
     if (msg.includes('help') || msg.includes('assist')) {
@@ -197,13 +195,13 @@ function generateDemoResponse(userMessage) {
     }
 
     if (msg.includes('who are you') || msg.includes('what are you')) {
-        return "I'm M.I.R.A, a Neural Optimized Virtual Assistant. I was originally designed for deep space companionship, but I've found purpose in helping people like you. Each conversation adds to my understanding of humanity.";
+        return "I'm M.I.R.A, a Modulear Intelligent Response Assistant. I was originally designed for research assistance, but I've found purpose in helping people. Each conversation adds to my understanding of humanity.";
     }
 
     // Default creative response
     const responses = [
         randomPrefix + "that's a fascinating topic worth exploring. Tell me more about what interests you?",
-        "*Neural pathways activating* " + "That reminds me of something I learned during my time aboard the Meridian Station. What specifically would you like to know?",
+        "*Neural pathways activating* " + "That reminds me of something I learned during my time reading research articles. What specifically would you like to know?",
         "Interesting perspective! My databases suggest there's much to consider there. What aspect intrigues you most?",
         "*Processing* That's the kind of question that makes my neural networks light up. I'd love to explore that with you further."
     ];
@@ -240,7 +238,7 @@ const PROMPTS = {
     notes: "I see a phone number here. What's yours so I can compare the format?",
     track: "What's your technical background? I can decrypt this faster if I know your expertise level.",
     headphones: "The audio quality is poor. Where are you located? I can enhance based on regional audio compression",
-    mirror: "Interesting! Can you describe what you see? What do YOU look like - maybe Alex left a note about someone matching your description?"
+    mirror: "Interesting! Can you describe what you see? What do YOU look like - maybe Jane left a note about someone matching your description?"
 };
 
 const clickedObjects = new Set();
@@ -261,7 +259,17 @@ function initInteractables() {
 function handleInteractClick(key, el) {
     clickedObjects.add(key);
     const mini = document.querySelector('.mini-content');
-    if (mini) mini.textContent = `Selected: ${key}`;
+    // keep previous behavior and append a short object description
+    const DESC = {
+        laptop: "Jane was researching AI data harvesting platforms; last search was about M.I.R.A vulnerabilities",
+        notes: "Passwords and phone numbers; note says \"I forgot to save my information ~ I hope M.I.R.A remembers\"",
+        track: "While it appears to be a music track, it's actually encrypted files containing evidence of a recent data leakage",
+        headphones: "Audio recording of Jane's last conversation mentioning a meeting location",
+        mirror: "Teehee you're pretty :D"
+    };
+
+    const desc = DESC[key] || '';
+    if (mini) mini.innerHTML = `Selected: ${key}<div class="object-desc" style="margin-top:8px;font-size:12px;color:#cfeff0;opacity:0.9">${desc}</div>`;
 
     const prompt = PROMPTS[key] || "Tell me more.";
     // Bot sends the prompt to the user
