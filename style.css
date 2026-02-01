@@ -34,7 +34,7 @@
     color: #00ffff;
 }
 
-.github-link {
+/* .github-link {
     background: rgba(0, 255, 255, 0.1);
     border: 1px solid rgba(0, 255, 255, 0.3);
     color: #00ffff;
@@ -43,11 +43,11 @@
 .github-link:hover {
     background: rgba(0, 255, 255, 0.2);
     color: #00ffff;
-}
+} */
 
 body {
-    font-family: 'Courier New', 'Consolas', monospace;
-    background: #0a0e27;
+    font-family: 'Courier New', monospace;
+    background: #000000;
     background-image:
         radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
@@ -79,12 +79,12 @@ body {
 }
 
 .container {
-    background: rgba(15, 20, 40, 0.95);
+    background: rgba(74, 8, 117, 0.3);
     border-radius: 12px;
-    border: 2px solid #00ffff;
+    border: 2px solid #B252F2;
     box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 0 60px rgba(0, 255, 255, 0.05);
+        0 0 20px rgba(178, 82, 242, 0.7),
+        inset 0 0 60px rgba(178, 82, 242, 0.05);
     padding: 30px;
     max-width: 600px;
     width: 100%;
@@ -115,10 +115,10 @@ body {
 .avatar-core {
     width: 50px;
     height: 50px;
-    background: radial-gradient(circle, #00ffff 0%, #0088ff 100%);
+    background: radial-gradient(circle, #B252F2 0%, #2f0b43 100%);
     border-radius: 50%;
     box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.6),
+        0 0 20px rgba(178, 82, 242, 0.6),
         inset 0 0 20px rgba(255, 255, 255, 0.3);
     animation: pulse 2s ease-in-out infinite;
 }
@@ -127,7 +127,7 @@ body {
     position: absolute;
     width: 70px;
     height: 70px;
-    border: 2px solid #00ffff;
+    border: 2px solid #B252F2;
     border-radius: 50%;
     border-top-color: transparent;
     border-right-color: transparent;
@@ -137,12 +137,12 @@ body {
 @keyframes pulse {
     0%, 100% {
         box-shadow:
-            0 0 20px rgba(0, 255, 255, 0.6),
+            0 0 20px rgba(178, 82, 242, 0.6),
             inset 0 0 20px rgba(255, 255, 255, 0.3);
     }
     50% {
         box-shadow:
-            0 0 40px rgba(0, 255, 255, 0.9),
+            0 0 40px rgba(178, 82, 242, 0.9),
             inset 0 0 30px rgba(255, 255, 255, 0.5);
     }
 }
@@ -157,12 +157,12 @@ body {
 }
 
 h1 {
-    color: #00ffff;
+    color: #5CF2E3;
     font-size: 28px;
     font-weight: bold;
     letter-spacing: 3px;
     margin-bottom: 5px;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(92, 242, 227, 0.5);
 }
 
 .character-subtitle {
@@ -197,8 +197,8 @@ h1 {
 .lore-hint {
     margin-top: 15px;
     padding: 10px;
-    background: rgba(0, 255, 255, 0.05);
-    border-left: 3px solid #00ffff;
+    background: rgba(92, 242, 227, 0.05);
+    border-left: 3px solid #5CF2E3;
     color: #6699cc;
     font-size: 11px;
     font-style: italic;
@@ -225,7 +225,7 @@ h1 {
     width: 50px;
     height: 24px;
     background: #1a2040;
-    border: 2px solid #00ffff;
+    border: 2px solid #5CF2E3;
     border-radius: 12px;
     position: relative;
     transition: all 0.3s;
@@ -236,12 +236,12 @@ h1 {
     position: absolute;
     width: 16px;
     height: 16px;
-    background: #00ffff;
+    background: #5CF2E3;
     border-radius: 50%;
     top: 2px;
     left: 2px;
     transition: all 0.3s;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(92, 242, 227, 0.5);
 }
 
 .mode-toggle input:checked + .toggle-slider::before {
@@ -249,7 +249,7 @@ h1 {
 }
 
 .toggle-label {
-    color: #00ffff;
+    color: #5CF2E3;
     font-size: 12px;
     letter-spacing: 1px;
 }
@@ -265,38 +265,38 @@ h1 {
     flex: 1;
     padding: 10px;
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #00ffff;
+    border: 1px solid #5CF2E3;
     border-radius: 4px;
     font-size: 14px;
-    color: #00ffff;
+    color: #5CF2E3;
     font-family: 'Courier New', monospace;
 }
 
 #apiKey:focus {
     outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(92, 242, 227, 0.3);
 }
 
 #apiKey::placeholder {
-    color: rgba(0, 255, 255, 0.4);
+    color: rgba(92, 242, 227, 0.4);
 }
 
 #saveKey {
     padding: 10px 20px;
-    background: rgba(0, 255, 255, 0.2);
-    color: #00ffff;
-    border: 1px solid #00ffff;
+    background: rgba(92, 242, 227, 0.2);
+    color: #5CF2E3;
+    border: 1px solid #5CF2E3;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
-    font-family: 'Courier New', monospace;
+    font-family: sans-serif;
     letter-spacing: 1px;
     transition: all 0.3s;
 }
 
 #saveKey:hover {
-    background: rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    background: rgba(92, 242, 227, 0.3);
+    box-shadow: 0 0 15px rgba(92, 242, 227, 0.4);
 }
 
 #keyStatus {
@@ -305,7 +305,7 @@ h1 {
 }
 
 .chat-container {
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(92, 242, 227, 0.3);
     border-radius: 8px;
     height: 400px;
     display: flex;
@@ -357,18 +357,18 @@ h1 {
 }
 
 .user-message {
-    background: rgba(138, 43, 226, 0.3);
+    background: rgba(178, 82, 242, 0.3);
     color: #e0e0ff;
     align-self: flex-end;
-    border: 1px solid rgba(138, 43, 226, 0.5);
+    border: 1px solid rgba(178, 82, 242, 0.5);
     border-bottom-right-radius: 2px;
 }
 
 .bot-message {
-    background: rgba(0, 255, 255, 0.1);
-    color: #00ffff;
+    background: rgba(92, 242, 227, 0.1);
+    color: #5CF2E3;
     align-self: flex-start;
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(92, 242, 227, 0.3);
     border-bottom-left-radius: 2px;
 }
 
@@ -376,28 +376,28 @@ h1 {
     display: flex;
     gap: 10px;
     padding: 15px;
-    border-top: 1px solid rgba(0, 255, 255, 0.3);
+    border-top: 1px solid rgba(92, 242, 227, 0.3);
 }
 
 #userInput {
     flex: 1;
     padding: 10px;
     background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(92, 242, 227, 0.3);
     border-radius: 4px;
     font-size: 14px;
-    color: #00ffff;
+    color: #5CF2E3;
     font-family: 'Courier New', monospace;
 }
 
 #userInput:focus {
     outline: none;
-    border-color: #00ffff;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    border-color: #5CF2E3;
+    box-shadow: 0 0 10px rgba(92, 242, 227, 0.2);
 }
 
 #userInput::placeholder {
-    color: rgba(0, 255, 255, 0.4);
+    color: rgba(92, 242, 227, 0.4);
 }
 
 #userInput:disabled {
@@ -408,9 +408,9 @@ h1 {
 
 #sendBtn {
     padding: 10px 24px;
-    background: rgba(0, 255, 255, 0.2);
-    color: #00ffff;
-    border: 1px solid #00ffff;
+    background: rgba(92, 242, 227, 0.2);
+    color: #5CF2E3;
+    border: 1px solid #5CF2E3;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
@@ -420,8 +420,8 @@ h1 {
 }
 
 #sendBtn:hover:not(:disabled) {
-    background: rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    background: rgba(92, 242, 227, 0.3);
+    box-shadow: 0 0 15px rgba(92, 242, 227, 0.4);
 }
 
 #sendBtn:disabled {
@@ -441,10 +441,10 @@ h1 {
 .typing-indicator span {
     width: 8px;
     height: 8px;
-    background: #00ffff;
+    background: #5CF2E3;
     border-radius: 50%;
     animation: typing 1.4s infinite;
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 8px rgba(92, 242, 227, 0.6);
 }
 
 .typing-indicator span:nth-child(2) {

@@ -52,7 +52,7 @@ userInput.addEventListener('keypress', (e) => {
 // Initialize
 window.addEventListener('load', () => {
     setTimeout(() => {
-        statusText.textContent = 'SYSTEMS ONLINE';
+        statusText.textContent = 'ACTIVE';
         userInput.disabled = false;
         sendBtn.disabled = false;
         addMessage(NOVA_CHARACTER.welcomeMessage, 'bot');
