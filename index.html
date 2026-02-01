@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA-7 Interface</title>
+    <title>MIRA Interface</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="demo-nav">
-        <a href="../../index.html" class="nav-link">Back to Projects</a>
-        <a href="https://github.com/StrungOwl/SP26-Exploring-User-Interaction/tree/main/BY%20REQUEST/AI%20Chatbot" target="_blank" class="nav-link github-link">View Source on GitHub</a>
+        <!-- <a href="../../index.html" class="nav-link">Back to Projects</a> -->
+        <!-- <a href="https://github.com/StrungOwl/SP26-Exploring-User-Interaction/tree/main/BY%20REQUEST/AI%20Chatbot" target="_blank" class="nav-link github-link">View Source on GitHub</a> -->
     </nav>
     <div class="scanlines"></div>
 
-    <div class="container">
+    <div class="container scale-up">
         <!-- Character Header -->
         <div class="character-header">
             <div class="avatar-container">
@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="character-info">
-                <h1>SAGE</h1>
-                <p class="character-subtitle">Neural Optimized Virtual Assistant</p>
+                <h1>M.I.R.A</h1>
+                <p class="character-subtitle">Modular Intelligent Response Assistant</p>
                 <p class="character-status">
                     <span class="status-indicator"></span>
                     <span id="statusText">INITIALIZING...</span>
@@ -48,19 +48,63 @@
             <span id="keyStatus"></span>
         </div>
 
-        <!-- Chat Interface -->
-        <div class="chat-container">
-            <div id="chatMessages" class="chat-messages"></div>
+        <!-- Side-by-side Chat + 3D Model -->
+        <div class="split">
+            <div class="left-col">
+                <!-- Chat Interface -->
+                <div class="chat-container">
+                    <div id="chatMessages" class="chat-messages"></div>
 
-            <div class="input-section">
-                <input type="text" id="userInput" placeholder="Send transmission..." disabled>
-                <button id="sendBtn" disabled>TRANSMIT</button>
+                    <div class="input-section">
+                        <input type="text" id="userInput" placeholder="Send transmission..." disabled>
+                        <button id="sendBtn" disabled>ENTER</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="model-row">
+                    <!-- Spline viewer placeholder; replace URL with your scene URL -->
+                    <div id="spline-viewer" class="spline-viewer">
+                        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.46/build/spline-viewer.js"></script>
+
+                        <spline-viewer
+                            class="spline-viewer"
+                            url="https://prod.spline.design/OgDLzjqgvD1jSIRt/scene.splinecode"
+                            aria-label="Spline 3D scene"
+                        ></spline-viewer>
+                    </div>
+
+                    <div class="mini-ui">
+                        <h3>INFORMATION</h3>
+                        <p class="mini-text">Status: Ready</p>
+                        <!-- <button id="modelAction">Interact</button> -->
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="lore-hint">NOVA-7 was built in 2145 as a companion AI for deep space missions</div>
+        <div class="lore-hint">Jane built this AI chatbot as part of her PhD curriculum.</div>
     </div>
 
     <script src="sketch.js"></script>
+
+    <!-- Spline viewer: replace the URL below with your Spline scene URL -->
+<!-- 
+
+    
+    <script src="https://unpkg.com/@splinetool/viewer@1.12.46/build/spline-viewer.js"></script>
+    <script>
+        // Replace the URL string with your Spline scene URL (scene.splinecode)
+        try {
+            new SplineViewer({
+                url: 'https://prod.spline.design/OgDLzjqgvD1jSIRt/scene.splinecode',
+                element: document.getElementById('spline-viewer')
+            });
+        } catch (e) {
+            console.warn('Spline viewer not available or failed to initialize', e);
+        }
+    </script> -->
+    
 </body>
 </html>

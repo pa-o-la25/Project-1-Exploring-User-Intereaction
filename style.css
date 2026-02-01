@@ -13,10 +13,10 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background: rgba(10, 14, 39, 0.95);
+    background: #000000;
     backdrop-filter: blur(10px);
     z-index: 1001;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    border-bottom: 1px solid #5CF2E3
 }
 
 .nav-link {
@@ -86,9 +86,105 @@ body {
         0 0 20px rgba(178, 82, 242, 0.7),
         inset 0 0 60px rgba(178, 82, 242, 0.05);
     padding: 30px;
-    max-width: 600px;
+    max-width: 1400px;
     width: 100%;
     position: relative;
+    --ui-scale: 1;
+    will-change: transform;
+}
+
+/* Scale helpers: add one of these classes to the container element */
+.container.scale-up {
+    zoom: 1.15; /* works in Chromium/Edge/Chrome */
+    -moz-transform: scale(1.15); /* Firefox fallback */
+    transform: scale(1.15);
+    transform-origin: top center;
+}
+
+.container.scale-125 {
+    zoom: 1.25;
+    -moz-transform: scale(1.25);
+    transform: scale(1.25);
+    transform-origin: top center;
+}
+
+/* Split layout for chat (left) and model (right) */
+.split {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.left-col {
+    flex: 0 1 320px; /* reduced chat column width so model gets more space */
+    max-width: 360px;
+}
+
+.right-col {
+    flex: 1 1 980px; /* allow model column to grow larger */
+    min-width: 420px;
+    position: relative;
+}
+
+.spline-viewer {
+    width: 100%;
+    min-height: 520px; /* increased so model feels larger */
+    background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(20,12,40,0.6));
+    border-radius: 8px;
+    border: 1px solid rgba(92, 242, 227, 0.08);
+    overflow: hidden;
+}
+
+.spline-viewer canvas,
+.spline-viewer iframe {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+.model-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.spline-viewer {
+    flex: 1 1 auto;
+}
+
+.mini-ui {
+    position: static;
+    width: 260px; /* slightly wider to match larger model area */
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(92, 242, 227, 0.12);
+    color: #CFEFF0;
+    padding: 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(6px);
+}
+
+.mini-ui h3 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: #5CF2E3;
+}
+
+.mini-ui .mini-text {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+    .split { flex-direction: column; }
+    .left-col, .right-col { max-width: 100%; }
+    .spline-viewer { min-height: 320px; }
+    .model-row { flex-direction: column; }
+    .mini-ui { width: 100%; align-self: flex-start; min-height: auto; }
 }
 
 .character-header {
@@ -156,7 +252,7 @@ body {
     flex: 1;
 }
 
-h1 {
+h1, h3 {
     color: #5CF2E3;
     font-size: 28px;
     font-weight: bold;
