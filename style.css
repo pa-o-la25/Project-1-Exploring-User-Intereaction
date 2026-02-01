@@ -190,11 +190,11 @@ body {
 }
 
 /* Positioning of objects - approximate placements inside the placeholder scene */
-.interactable.laptop { left: 18%; top: 58%; }
+.interactable.laptop { left: 32%; top: 40%; }
 .interactable.notes { left: 40%; top: 22%; }
-.interactable.track { left: 62%; top: 58%; }
-.interactable.headphones { left: 78%; top: 30%; }
-.interactable.mirror { left: 52%; top: 12%; }
+.interactable.track { left: 35%; top: 70%; }
+.interactable.headphones { left: 48%; top: 50%; }
+.interactable.mirror { left: 78%; top: 25%; }
 
 /* Modal popup for results */
 .result-modal {
