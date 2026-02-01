@@ -153,6 +153,73 @@ body {
     flex: 1 1 auto;
 }
 
+/* Interactable overlays inside the 3D area */
+.spline-viewer { position: relative; }
+.interactable {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.45);
+    color: #cfeff0;
+    border: 1px solid rgba(92,242,227,0.12);
+    cursor: pointer;
+    transition: transform 250ms cubic-bezier(.2,.9,.3,1), box-shadow 250ms;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    user-select: none;
+    z-index: 1200;
+}
+
+/* gentle easing in/out animation on hover */
+.interactable:hover {
+    transform: translateY(-6px) scale(1.06);
+    box-shadow: 0 10px 30px rgba(92,242,227,0.12), 0 0 18px rgba(92,242,227,0.06) inset;
+}
+
+/* initial subtle float animation to hint interactivity */
+.interactable { animation: floaty 3.6s ease-in-out infinite; }
+
+@keyframes floaty {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.01); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+/* Positioning of objects - approximate placements inside the placeholder scene */
+.interactable.laptop { left: 18%; top: 58%; }
+.interactable.notes { left: 40%; top: 22%; }
+.interactable.track { left: 62%; top: 58%; }
+.interactable.headphones { left: 78%; top: 30%; }
+.interactable.mirror { left: 52%; top: 12%; }
+
+/* Modal popup for results */
+.result-modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.97);
+    background: rgba(0,0,0,0.95);
+    color: #cfeff0;
+    border: 1px solid #5cf2e3;
+    padding: 18px;
+    width: min(520px, 92%);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    z-index: 2000;
+    display: none;
+    transition: transform 220ms ease, opacity 180ms ease;
+}
+
+.result-modal.show { display: block; transform: translate(-50%, -50%) scale(1); }
+.result-modal h3 { margin-bottom: 8px; }
+.result-modal ul { margin-top: 8px; margin-left: 18px; }
+.result-modal .close-btn { margin-top: 12px; padding: 8px 12px; background: #5cf2e3; color: #022; border-radius: 6px; cursor: pointer; border: none; }
+
+
 .mini-ui {
     position: static;
     width: 260px; /* slightly wider to match larger model area */

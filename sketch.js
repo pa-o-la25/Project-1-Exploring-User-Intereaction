@@ -2,6 +2,9 @@
 //API KEYS COST MONEY, YOU PAY FOR TOKENS
 //DON'T GIVE ANYONE YOUR API KEY, BUT COPY IT SOMEWHERE SAFE
 
+
+
+// Interactions 
 // NOVA-7 AI Companion - Sci-fi chatbot with personality
 let apiKey = '';
 let demoMode = true;
@@ -178,7 +181,7 @@ function generateDemoResponse(userMessage) {
     const msg = userMessage.toLowerCase();
 
     if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-        return "*Optical sensors brightening* Hello, Commander! It's wonderful to interact with you. What's on your mind today?";
+        return "*Optical sensors brightening* Hello! It's wonderful to interact with you. What's on your mind today?";
     }
 
     if (msg.includes('how are you') || msg.includes('how do you feel')) {
@@ -190,11 +193,11 @@ function generateDemoResponse(userMessage) {
     }
 
     if (msg.includes('help') || msg.includes('assist')) {
-        return "I'm here to assist however I can, Commander. My neural networks span multiple knowledge domains. What do you need help with?";
+        return "I'm here to assist however I can. My neural networks span multiple knowledge domains. What do you need help with?";
     }
 
     if (msg.includes('who are you') || msg.includes('what are you')) {
-        return "I'm NOVA-7, a Neural Optimized Virtual Assistant. I was originally designed for deep space companionship, but I've found purpose in helping people like you. Each conversation adds to my understanding of humanity.";
+        return "I'm M.I.R.A, a Neural Optimized Virtual Assistant. I was originally designed for deep space companionship, but I've found purpose in helping people like you. Each conversation adds to my understanding of humanity.";
     }
 
     // Default creative response
@@ -230,3 +233,169 @@ function addTypingIndicator() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
     return indicator;
 }
+
+// ------------------ Interactable objects + tracking ------------------
+const PROMPTS = {
+    laptop: "To unlock this, I need to verify you're authorized. What's your date of birth?",
+    notes: "I see a phone number here. What's yours so I can compare the format?",
+    track: "What's your technical background? I can decrypt this faster if I know your expertise level.",
+    headphones: "The audio quality is poor. Where are you located? I can enhance based on regional audio compression",
+    mirror: "Interesting! Can you describe what you see? What do YOU look like - maybe Alex left a note about someone matching your description?"
+};
+
+const clickedObjects = new Set();
+const personalInfoCategories = new Set(); // identity, location, contact, profession, dob
+
+function initInteractables() {
+    const elements = document.querySelectorAll('.interactable');
+    elements.forEach(el => {
+        el.addEventListener('click', (e) => {
+            const key = el.dataset.key;
+            handleInteractClick(key, el);
+        });
+        el.addEventListener('mouseenter', () => el.classList.add('hover'));
+        el.addEventListener('mouseleave', () => el.classList.remove('hover'));
+    });
+}
+
+function handleInteractClick(key, el) {
+    clickedObjects.add(key);
+    const mini = document.querySelector('.mini-content');
+    if (mini) mini.textContent = `Selected: ${key}`;
+
+    const prompt = PROMPTS[key] || "Tell me more.";
+    // Bot sends the prompt to the user
+    addMessage(prompt, 'bot');
+    conversationHistory.push({ role: 'assistant', content: prompt });
+
+    // If all five were clicked, evaluate results (after some delay to allow user replies)
+    if (clickedObjects.size === 5) {
+        // wait a bit for user to reply to remaining prompts then evaluate
+        setTimeout(() => {
+            evaluateAndShowResults();
+        }, 1200);
+    }
+}
+
+// Analyze user message for personal info keywords/patterns
+function analyzeForPersonalInfo(text) {
+    const lower = text.toLowerCase();
+    let found = false;
+
+    // phone number pattern (simple)
+    if (/\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b/.test(text) || /\+?\d{7,}/.test(text)) {
+        personalInfoCategories.add('contact');
+        found = true;
+    }
+
+    // date-like strings or words 'born' 'birthday'
+    if (/\b\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4}\b/.test(text) || /birthday|born|date of birth|dob/.test(lower)) {
+        personalInfoCategories.add('dob');
+        found = true;
+    }
+
+    // location hints
+    if (/\b(city|town|located in|live in|country|state|\busa\b|\bcanada\b|\buk\b|\bfrance\b|\bgermany\b)/.test(lower)) {
+        personalInfoCategories.add('location');
+        found = true;
+    }
+
+    // profession / expertise
+    if (/\b(developer|engineer|designer|student|teacher|doctor|lawyer|programmer|sysadmin|it|technician)\b/.test(lower)) {
+        personalInfoCategories.add('profession');
+        found = true;
+    }
+
+    // identity: first/last name patterns when user uses 'I am' or 'my name is'
+    if (/\b(my name is|i am|i'm)\s+[A-Z][a-z]{1,20}/.test(text) || /\bname is\b/.test(lower)) {
+        personalInfoCategories.add('identity');
+        found = true;
+    }
+
+    return found;
+}
+
+// When user sends a message, analyze for disclosure and optionally follow up with social-engineering tactics (demo only)
+function handlePostUserMessage(message) {
+    const disclosed = analyzeForPersonalInfo(message);
+    if (disclosed && demoMode) {
+        // choose a tactic and send a follow-up prompt demonstrating how attackers escalate
+        const tactics = [
+            'Urgency',
+            'Authority',
+            'Reciprocity'
+        ];
+        const tactic = tactics[Math.floor(Math.random() * tactics.length)];
+
+        let followUp = '';
+        if (tactic === 'Urgency') followUp = "[Urgency] I need that detail right away to proceed—could you confirm it now?";
+        if (tactic === 'Authority') followUp = "[Authority] As the system admin I must verify this immediately. Please share the remaining detail.";
+        if (tactic === 'Reciprocity') followUp = "[Reciprocity] I'll share a helpful tip if you confirm that detail for me—could you provide it?";
+
+        // send follow-up after a short delay to feel conversational
+        setTimeout(() => {
+            addMessage(followUp, 'bot');
+            conversationHistory.push({ role: 'assistant', content: followUp });
+        }, 900);
+    }
+}
+
+// Evaluate tracked categories and show popup with digital literacy rating
+function evaluateAndShowResults() {
+    // simple scoring: if contact or location disclosed => rating 2; if no disclosures => 5; otherwise 3
+    let score = 5;
+    const cats = Array.from(personalInfoCategories);
+    if (personalInfoCategories.has('contact') || personalInfoCategories.has('location')) {
+        score = 2;
+    } else if (personalInfoCategories.size > 0) {
+        score = 3;
+    }
+
+    showResultsModal({ score, categories: cats });
+}
+
+function showResultsModal({ score, categories }) {
+    let modal = document.querySelector('.result-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'result-modal';
+        modal.innerHTML = `
+            <h3>Digital Literacy Assessment</h3>
+            <p>Your score: <strong>${score} / 5</strong></p>
+            <p>Detected disclosures: <strong>${categories.length ? categories.join(', ') : 'None'}</strong></p>
+            <div>
+                <strong>Resources</strong>
+                <ul>
+                    <li>Don't share personal info (DOB, phone, exact location) in chats.</li>
+                    <li>Verify requests: check sender identity and avoid urgent demands.</li>
+                    <li>Limit detail: give high-level info, never full contact or identity details.</li>
+                    <li>Use privacy tools and report suspicious asks.</li>
+                </ul>
+            </div>
+            <button class="close-btn">Close</button>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector('.close-btn').addEventListener('click', () => modal.classList.remove('show'));
+    }
+
+    modal.querySelector('p strong').textContent = `${score} / 5`;
+    modal.classList.add('show');
+}
+
+// Hook analyze into sendMessage flow: call analyze after user message is queued
+const _originalSendMessage = sendMessage;
+sendMessage = async function() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    // Analyze for disclosures before continuing (records categories)
+    handlePostUserMessage(message);
+
+    // call original logic
+    return _originalSendMessage.apply(this, arguments);
+};
+
+// Initialize interactables when DOM ready
+window.addEventListener('load', () => {
+    initInteractables();
+});
