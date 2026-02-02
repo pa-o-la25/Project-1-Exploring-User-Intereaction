@@ -76,7 +76,7 @@ body {
 .enter-btn {
     position:relative;
     left:50%;
-    top:-450px;
+    top:-500px;
     transform:translateX(-50%) translateY(8px);
     pointer-events:auto;
     opacity:0;
@@ -106,7 +106,7 @@ body {
 
 .info-block {
     position: relative; 
-    left: 0%;top: 420px; 
+    left: 0%;top: 460px; 
     padding: 50px 50px; 
     text-align:center; 
     color:#cfeff0;
