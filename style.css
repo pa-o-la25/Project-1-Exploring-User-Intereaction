@@ -239,7 +239,7 @@ body.fade-out { transition: opacity 600ms ease; opacity: 0; }
     justify-content: center;
     font-size: 28px;
     border-radius: 8px;
-    background: rgba(0,0,0,0.45);
+    background: rgba(255, 255, 255, 0.45);
     color: #cfeff0;
     border: 1px solid rgba(92,242,227,0.12);
     cursor: pointer;
@@ -252,7 +252,7 @@ body.fade-out { transition: opacity 600ms ease; opacity: 0; }
 /* gentle easing in/out animation on hover */
 .interactable:hover {
     transform: translateY(-6px) scale(1.06);
-    box-shadow: 0 10px 30px rgba(92,242,227,0.12), 0 0 18px rgba(92,242,227,0.06) inset;
+    box-shadow: 0 10px 30px rgba(178, 82, 242, 0.7), 0 0 18px rgba(92,242,227,0.06) inset;
 }
 
 /* initial subtle float animation to hint interactivity */
