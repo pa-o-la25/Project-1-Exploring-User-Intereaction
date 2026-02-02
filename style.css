@@ -66,17 +66,17 @@ body {
 
 .landing-hero { position:fixed; inset:0; height:100vh; min-height:360px; display:flex; align-items:center; justify-content:center; overflow:hidden; background: rgba(0,0,0,0.18); }
 .landing-hero .hero-inner { position:relative; width:50vw; max-width:760px; height:60vh; max-height:520px; display:flex; align-items:center; justify-content:center; }
-.hero-video { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(1); width:auto; height:100%; object-fit:cover; transition: transform 220ms linear, filter 220ms linear; border-radius:10px; z-index:1;     border: 2px solid #B252F2;
+.hero-video { position:absolute; left:50%; top:75%; transform:translate(-50%,-50%) scale(1); width:auto; height:100%; object-fit:cover; transition: transform 220ms linear, filter 220ms linear; border-radius:10px; z-index:1;     border: 2px solid #B252F2;
     box-shadow:
         0 0 20px rgba(178, 82, 242, 0.7),
-        inset 0 0 60px rgba(178, 82, 242, 0.05);}
+        inset 0 0 60px rgba(178, 82, 242, 0.05);border: 2px solid #B252F2;}
 /* place the overlay above the video and center horizontally */
 .hero-overlay { position:absolute; left:50%; top:38%; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:12px; pointer-events:none; }
 .scroll-prompt { color:#9fbfc6; background: rgba(0,0,0,0.35); padding:6px 10px; border-radius:8px; font-size:13px; pointer-events:auto; }
 .enter-btn {
     position:relative;
-    left:50%;
-    top:-500px;
+    left:0%;
+    top:-480px;
     transform:translateX(-50%) translateY(8px);
     pointer-events:auto;
     opacity:0;
@@ -99,6 +99,21 @@ body {
     z-index: 4;
 }
 
+.enter-btn:hover {
+    transform: translateY(-6px) scale(1.06);
+    background: rgba(92, 242, 227, 0.2);
+    box-shadow: 0 10px 30px rgba(178, 82, 242, 0.7), 0 0 18px rgba(92,242,227,0.06) inset;
+}
+
+/* initial subtle float animation to hint interactivity */
+.enter-btn { animation: changes 3.6s ease-in-out infinite; }
+
+@keyframes changes {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.01); }
+    100% { transform: translateY(0) scale(1); }
+}
+
 /* enlarged state (reveals enter button and slightly darkens video) */
 .landing-hero.enlarged .enter-btn { opacity:1; transform:translateX(-50%) translateY(0); }
 .landing-hero.enlarged .hero-video { filter: brightness(0.6) saturate(0.95); }
@@ -106,7 +121,7 @@ body {
 
 .info-block {
     position: relative; 
-    left: 0%;top: 460px; 
+    left: 0%;top: -400px; 
     padding: 50px 50px; 
     text-align:center; 
     color:#cfeff0;
