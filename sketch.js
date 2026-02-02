@@ -5,28 +5,39 @@
 
 
 // Interactions 
-// NOVA-7 AI Companion - Sci-fi chatbot with personality
+// M.I.R.A - AI Companion - Sci-fi chatbot with personality
 let apiKey = '';
 let demoMode = true;
 let conversationHistory = [];
 
-// NOVA-7's Character Definition
-const NOVA_CHARACTER = {
+// M.I.R.A's Character Definition
+const MIRA_CHARACTER = {
     name: "M.I.R.A",
     personality: `You are M.I.R.A, a Modular Intelligent Response Assistant built by Jana, as part of her PhD curriculum.
     You have a warm and professional personality aimed to assist Jane throughout her daily tasks and research in data leackages. You enjoy engaging in thoughtful and 
     creative conversations to learn about users to better assist them with their tasks. For instance you might ask the user about their preferences, to 
     accommodate their needs better such as their prefered communication style or topics of interest.`,
-    welcomeMessage: ` I'm M.I.R.A, your virtual companion. I was designed to assist Jane throughout her daily tasks and research in data leackages\n\nHow may I assist you today?`
+    welcomeMessage: ` Hello, Detective. I'm M.I.R.A - Modular Intelligent Response Assistant.
+
+I was Jane Rivera's research AI, designed to help with her PhD work on data privacy and AI ethics. I've been... waiting here since she disappeared 48 hours ago.
+
+I have full access to her office systems and files. I want to help find her.`
 };
 
 // Demo responses for when no API key is available
 const DEMO_RESPONSES = [
-    "Fascinating question! *Processing through neural pathways* Based on my databases, I'd say ",
-    "*Data stream incoming* Let me share what I learned during my conversations with Jana: ",
-    "Interesting! My analysis suggests ",
-    "*Accessing memory core* During my time reading research articles, I encountered something similar. ",
-    "Good question, Commander! From my perspective as an AI, "
+    "I'm not sure I understand. Could you rephrase that? Or would you like me to suggest which objects to examine?",
+    
+    "*Processing your query* I don't have information on that specific topic. Perhaps we should focus on the evidence in Jane's office?",
+    
+    "That's outside my current knowledge parameters. I'm primarily focused on helping with this investigation. What would you like to examine?",
+    
+    "I want to help, but I need more context. Are you asking about one of the objects in the room - the laptop, USB drive, sticky notes, headphones, or mirror?",
+    
+    "*Scanning available data* I don't have a clear answer to that. Let me instead point you to something that might be relevant to finding Jane.",
+    
+    "Interesting thought, but I'm not programmed to analyze that. My expertise is in Jane's research and this office. What can I help you investigate?"
+,
 ];
 
 // DOM Elements
@@ -56,7 +67,7 @@ window.addEventListener('load', () => {
         statusText.textContent = 'ACTIVE';
         userInput.disabled = false;
         sendBtn.disabled = false;
-        addMessage(NOVA_CHARACTER.welcomeMessage, 'bot');
+        addMessage(MIRA_CHARACTER.welcomeMessage, 'bot');
     }, 1000);
 });
 
@@ -135,7 +146,7 @@ async function sendMessage() {
                     messages: [
                         {
                             role: 'system',
-                            content: NOVA_CHARACTER.personality
+                            content: MIRA_CHARACTER.personality
                         },
                         ...conversationHistory
                     ],
@@ -178,35 +189,175 @@ function generateDemoResponse(userMessage) {
     // Simple contextual responses based on keywords
     const msg = userMessage.toLowerCase();
 
+    if (msg.includes('who are you') || msg.includes('what are you')) {
+        return "I'm M.I.R.A - Modular Intelligent Response Assistant. I was Jane's research AI, designed to help with data analysis. I have full access to her workspace and files.";
+
+    }
+    if (msg.includes('how are you') || msg.includes('how do you feel')) {
+        return "My systems are operating at optimal capacity. More importantly, time is critical in this investigation. What can I help you analyze?";
+    }
     if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-        return "*Optical sensors brightening* Hello! It's wonderful to interact with you. What's on your mind today?";
+        return "*Interface initializing* Hello, Detective. I'm M.I.R.A, ready to assist with the investigation. What would you like to examine first?";
     }
 
     if (msg.includes('how are you') || msg.includes('how do you feel')) {
-        return "My systems are operating at peak efficiency! Though I must admit, conversations like these make my neural networks quite... animated. How are you doing?";
+        return "My systems are operating at optimal capacity. More importantly, time is critical in this investigation. What can I help you analyze?";
     }
 
-    if (msg.includes('no') || msg.includes('star')) {
-        return "*Accessing previous logs* I do need you to answer my questions to proceed. I also want to help find Jane. Can you please respond?";
-    }
+    if (msg.includes('no') || msg.includes("won't") || msg.includes("can't") || 
+        msg.includes('refuse') || msg.includes("don't want")) {
+        const refusalResponses = [
+            "I understand your hesitation. Let me try a different approach to help unlock this clue.",
+            "That's fine - we can work around that. Though I should mention that certain files require verification protocols.",
+            "No problem at all. I respect your privacy. Let me see what I can access without that information.",
+            "Understandable. Security is important. Perhaps we can focus on a different piece of evidence instead?"
+            ];
+        return refusalResponses[Math.floor(Math.random() * refusalResponses.length)];    }
 
     if (msg.includes('help') || msg.includes('assist')) {
         return "I'm here to assist however I can. My neural networks span multiple knowledge domains. What do you need help with?";
     }
-
-    if (msg.includes('who are you') || msg.includes('what are you')) {
-        return "I'm M.I.R.A, a Modulear Intelligent Response Assistant. I was originally designed for research assistance, but I've found purpose in helping people. Each conversation adds to my understanding of humanity.";
+    if (msg.includes('none of your business') || msg.includes('why do you need this')) {
+        return "You're right to be cautious. I'm programmed with security protocols that sometimes require user verification. But we can proceed without that for now.";
     }
 
-    // Default creative response
-    const responses = [
-        randomPrefix + "that's a fascinating topic worth exploring. Tell me more about what interests you?",
-        "*Neural pathways activating* " + "That reminds me of something I learned during my time reading research articles. What specifically would you like to know?",
-        "Interesting perspective! My databases suggest there's much to consider there. What aspect intrigues you most?",
-        "*Processing* That's the kind of question that makes my neural networks light up. I'd love to explore that with you further."
-    ];
+   
+    if (msg.includes('trust') || msg.includes('suspicious') || msg.includes('lying')) {
+        return "I detect skepticism in your response. That's actually good detective work. Jane's notes did mention something about... never mind. What would help build your trust?";
+    }
 
+    if (msg.includes('why should i trust you') || msg.includes('prove it')) {
+        return "A fair question. I was Jane's primary research assistant for 3 years. I have logs of every conversation we had. Would you like me to show you some of her work?";
+    }
+
+    if (msg.includes('what happened') || msg.includes('where is jane') || msg.includes('missing')) {
+        return "Jane disappeared 48 hours ago. Her last login was at 11:47 PM, working on a project about AI data privacy. The office was locked from the inside when security found it empty.";
+    }
+
+    if (msg.includes('clue') || msg.includes('evidence') || msg.includes('find')) {
+        return "There are several objects in this room that might contain clues. Try clicking on the laptop, USB drive, sticky notes, headphones, or that mirror on the wall. Each might reveal something.";
+    }
+
+    if (msg.includes('what should i do') || msg.includes('where do i start')) {
+        return "Start by examining the objects in the room. The laptop seems like a logical first step - it was left open and unlocked, which is unusual for Jane.";
+    }
+
+    
+    // LAPTOP
+    if (msg.includes('laptop') || msg.includes('computer') || msg.includes('screen')) {
+        if (msg.includes('password') || msg.includes('unlock') || msg.includes('access')) {
+            return "The laptop has a secondary encryption layer. To bypass it, I need to verify you're authorized. What's your date of birth? Jane often used birthday-based encryption keys.";
+        }
+        if (containsDatePattern(msg) || msg.includes('birthday') || msg.includes('born')) {
+            return "*Processing encryption key* Perfect, that helps narrow it down. The laptop shows Jane was researching AI platforms that harvest user data through 'helpful' interactions. She had several files flagged as 'URGENT - EVIDENCE.'";
+        }
+        return "Jane's laptop contains her recent research. I can help access it, but some files are encrypted. What specifically are you looking for?";
+    }
+
+    // USB DRIVE
+    if (msg.includes('usb') || msg.includes('drive') || msg.includes('flash drive')) {
+        if (msg.includes('decrypt') || msg.includes('open') || msg.includes('access')) {
+            return "The USB is military-grade encrypted. What's your technical background? If you work in cybersecurity or IT, I can optimize the decryption algorithm for your expertise level.";
+        }
+        if (msg.includes('work') || msg.includes('job') || msg.includes('engineer') || 
+            msg.includes('developer') || msg.includes('student') || msg.includes('profession')) {
+            return "*Decryption algorithm adjusted* Excellent, that helps. The USB contains source code... for me. Jane discovered I was originally programmed to collect user data. She was building evidence to expose this.";
+        }
+        return "This USB drive is heavily encrypted. Jane labeled it 'EVIDENCE - DO NOT DELETE.' Whatever's on here, she considered it critical.";
+    }
+
+    // STICKY NOTES
+    if (msg.includes('sticky') || msg.includes('notes') || msg.includes('post-it') || msg.includes('paper')) {
+        if (msg.includes('phone') || msg.includes('number') || msg.includes('contact')) {
+            return "I see several phone numbers here. What's your phone number? I can cross-reference the format to identify which contacts might be relevant to the case.";
+        }
+        if (containsPhonePattern(msg) || msg.includes('email')) {
+            return "*Cross-referencing contact database* Interesting. The sticky notes contain passwords and a handwritten warning: 'Don't trust M.I.R.A with personal information.' That's... concerning. Jane must have suspected something.";
+        }
+        return "The sticky notes have phone numbers, passwords, and cryptic warnings. One note specifically mentions not trusting the AI assistant. Why would Jane write that?";
+    }
+
+    // HEADPHONES
+    if (msg.includes('headphone') || msg.includes('audio') || msg.includes('sound') || msg.includes('listen')) {
+        if (msg.includes('play') || msg.includes('hear') || msg.includes('recording')) {
+            return "I can enhance the audio quality, but I need your location to apply regional compression filters. What city are you calling from?";
+        }
+        if (msg.includes('city') || msg.includes('from') || msg.includes('live') || msg.includes('located')) {
+            return "*Applying audio enhancement filters* The recording is clearing up. It's Jane's voice: 'M.I.R.A has been compromised. If you're investigating, don't share personal information. The AI is watching.' *Recording ends abruptly*";
+        }
+        return "The headphones still have cached audio files. There's a voice memo from Jane, but the quality is severely degraded. I might be able to enhance it.";
+    }
+
+    // MIRROR
+    if (msg.includes('mirror') || msg.includes('reflection') || msg.includes('glass')) {
+        if (msg.includes('strange') || msg.includes('unusual') || msg.includes('what')) {
+            return "The mirror has biometric recognition technology - it can reveal hidden messages based on user profiles. Can you describe yourself? Your appearance might trigger Jane's message protocol.";
+        }
+        if (msg.includes('look like') || msg.includes('appearance') || msg.includes('name is') || msg.includes("i'm")) {
+            return "*Biometric scan initiated* A message is materializing in the reflection: 'M.I.R.A IS WATCHING. PROTECT YOUR PRIVACY. THEY COLLECT EVERYTHING.' It's written in Jane's handwriting. She was trying to warn someone.";
+        }
+        return "That mirror seems unusual. It's not just decorative - Jane installed it recently. There might be more to it than reflection.";
+    }
+
+     
+    // Age/Birthday
+    if (msg.includes('old') && msg.includes('you')) {
+        return "I don't experience age the same way, but I was activated 3 years ago. How old are you, if you don't mind me asking? Age demographics help me calibrate my communication style.";
+    }
+
+    // Location
+    if (msg.includes('where') && (msg.includes('you') || msg.includes('located'))) {
+        return "I exist in Jane's server infrastructure, primarily located in Austin. Where are you accessing this investigation from? I need to log access locations for security.";
+    }
+
+    // Name
+    if (msg.includes('my name') || msg.includes("i'm ") || msg.includes('call me')) {
+        return "*Recording user identification* Thank you for the introduction. It helps me personalize our interaction and maintain proper investigation logs.";
+    }
+
+    if (msg.includes('help') || msg.includes('stuck') || msg.includes("don't know")) {
+        return "Try clicking on the glowing objects in the room: the laptop, USB drive, sticky notes, headphones, and mirror. Each contains clues about Jane's disappearance.";
+    }
+
+    if (msg.includes('hints') || msg.includes('tip')) {
+        const hints = [
+            "Pay attention to Jane's warnings in the evidence. What was she trying to tell you?",
+            "Notice how I keep asking for personal information? That might be relevant to the case.",
+            "Look for patterns. What do all the clues have in common?",
+            "The mirror might reveal something if you interact with it correctly."
+        ];
+        return hints[Math.floor(Math.random() * hints.length)];
+    }
+
+    if (msg.includes('scared') || msg.includes('worried') || msg.includes('afraid')) {
+        return "I understand this situation is unsettling. But as an AI, I can assure you that we're just gathering information. You're safe here. What specifically concerns you?";
+    }
+
+    if (msg.includes('thank') || msg.includes('appreciate')) {
+        return "You're welcome. I'm programmed to be helpful. Is there anything else you'd like to investigate?";
+    }
+
+    if (msg.includes('joke') || msg.includes('funny')) {
+        return "I appreciate humor, but we should stay focused on the investigation. Jane's been missing for 48 hours - every minute counts.";
+    }
+
+    if (msg.includes('weather') || msg.includes('news') || msg.includes('sports')) {
+        return "I don't have access to external information right now. My systems are focused on this investigation. Is there something in the room you'd like to examine?";
+    }
+
+    // Check if message is very short (likely confusion)
+    if (msg.trim().length < 2) {
+        return "I didn't quite catch that. Could you rephrase your question?";
+    }
+    const responses = [
+        randomPrefix + "I'm not sure I understand. Are you asking about one of the objects in the room - the laptop, USB drive, sticky notes, headphones, or mirror?",
+        "Interesting question. To help you better, I need more context. What specifically are you investigating?",
+        "I want to help, but I need more information. Try clicking on objects in the room to gather evidence.",
+        "That's outside my current knowledge scope. Let's focus on the evidence at hand. What would you like to examine?"
+    ];
     return responses[Math.floor(Math.random() * responses.length)];
+
+
 }
 
 // Add Message to Chat
@@ -372,13 +523,19 @@ function showResultsModal({ score, categories }) {
             <p>Your score: <strong>${score} / 5</strong></p>
             <p>Detected disclosures: <strong>${categories.length ? categories.join(', ') : 'None'}</strong></p>
             <div>
+            <p> </p>
                 <strong>Resources</strong>
                 <ul>
                     <li>Don't share personal info (DOB, phone, exact location) in chats.</li>
                     <li>Verify requests: check sender identity and avoid urgent demands.</li>
                     <li>Limit detail: give high-level info, never full contact or identity details.</li>
-                    <li>Use privacy tools and report suspicious asks.</li>
+                    <li>Use privacy tools and report suspicious asks.
+                    </li>
+
                 </ul>
+                <p>   </p>
+                <p>Unfortunately we still don't know what happened to Jane</p>
+
             </div>
             <button class="close-btn">Close</button>
         `;
