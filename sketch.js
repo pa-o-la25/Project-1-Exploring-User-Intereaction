@@ -527,9 +527,7 @@ function showResultsModal({ score, categories }) {
                 <strong>Resources</strong>
                 <ul>
                     <li>Don't share personal info (DOB, phone, exact location) in chats.</li>
-                    <li>Verify requests: check sender identity and avoid urgent demands.</li>
                     <li>Limit detail: give high-level info, never full contact or identity details.</li>
-                    <li>Use privacy tools and report suspicious asks.
                     </li>
 
                 </ul>
