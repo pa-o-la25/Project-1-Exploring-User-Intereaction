@@ -235,7 +235,7 @@ function generateDemoResponse(userMessage) {
     }
 
     if (msg.includes('clue') || msg.includes('evidence') || msg.includes('find')) {
-        return "There are several objects in this room that might contain clues. Try clicking on the laptop, USB drive, sticky notes, headphones, or that mirror on the wall. Each might reveal something.";
+        return "There are several objects in this room that might contain clues. Try clicking on the laptop, music track, sticky notes, headphones, or that mirror on the wall. Each might reveal something.";
     }
 
     if (msg.includes('what should i do') || msg.includes('where do i start')) {
@@ -248,22 +248,24 @@ function generateDemoResponse(userMessage) {
         if (msg.includes('password') || msg.includes('unlock') || msg.includes('access')) {
             return "The laptop has a secondary encryption layer. To bypass it, I need to verify you're authorized. What's your date of birth? Jane often used birthday-based encryption keys.";
         }
-        if (containsDatePattern(msg) || msg.includes('birthday') || msg.includes('born')) {
-            return "*Processing encryption key* Perfect, that helps narrow it down. The laptop shows Jane was researching AI platforms that harvest user data through 'helpful' interactions. She had several files flagged as 'URGENT - EVIDENCE.'";
-        }
-        return "Jane's laptop contains her recent research. I can help access it, but some files are encrypted. What specifically are you looking for?";
     }
+    if (msg.includes('birthday') || msg.includes('born')) {
+            return "*Processing encryption key* Perfect, that helps narrow it down. The laptop shows Jane was researching AI platforms that harvest user data through 'helpful' interactions. She had several files flagged as 'URGENT - EVIDENCE.'";
+    }
+
 
     // USB DRIVE
     if (msg.includes('usb') || msg.includes('drive') || msg.includes('flash drive')) {
         if (msg.includes('decrypt') || msg.includes('open') || msg.includes('access')) {
             return "The USB is military-grade encrypted. What's your technical background? If you work in cybersecurity or IT, I can optimize the decryption algorithm for your expertise level.";
         }
-        if (msg.includes('work') || msg.includes('job') || msg.includes('engineer') || 
-            msg.includes('developer') || msg.includes('student') || msg.includes('profession')) {
-            return "*Decryption algorithm adjusted* Excellent, that helps. The USB contains source code... for me. Jane discovered I was originally programmed to collect user data. She was building evidence to expose this.";
-        }
+
         return "This USB drive is heavily encrypted. Jane labeled it 'EVIDENCE - DO NOT DELETE.' Whatever's on here, she considered it critical.";
+    }
+
+    if (msg.includes('work') || msg.includes('job') || msg.includes('engineer') || 
+        msg.includes('developer') || msg.includes('student') || msg.includes('profession')) {
+        return "*Decryption algorithm adjusted* Excellent, that helps. The USB contains source code... for me. Jane discovered I was originally programmed to collect user data. She was building evidence to expose this.";
     }
 
     // STICKY NOTES
@@ -271,9 +273,7 @@ function generateDemoResponse(userMessage) {
         if (msg.includes('phone') || msg.includes('number') || msg.includes('contact')) {
             return "I see several phone numbers here. What's your phone number? I can cross-reference the format to identify which contacts might be relevant to the case.";
         }
-        if (containsPhonePattern(msg) || msg.includes('email')) {
-            return "*Cross-referencing contact database* Interesting. The sticky notes contain passwords and a handwritten warning: 'Don't trust M.I.R.A with personal information.' That's... concerning. Jane must have suspected something.";
-        }
+
         return "The sticky notes have phone numbers, passwords, and cryptic warnings. One note specifically mentions not trusting the AI assistant. Why would Jane write that?";
     }
 
@@ -282,10 +282,10 @@ function generateDemoResponse(userMessage) {
         if (msg.includes('play') || msg.includes('hear') || msg.includes('recording')) {
             return "I can enhance the audio quality, but I need your location to apply regional compression filters. What city are you calling from?";
         }
-        if (msg.includes('city') || msg.includes('from') || msg.includes('live') || msg.includes('located')) {
-            return "*Applying audio enhancement filters* The recording is clearing up. It's Jane's voice: 'M.I.R.A has been compromised. If you're investigating, don't share personal information. The AI is watching.' *Recording ends abruptly*";
-        }
         return "The headphones still have cached audio files. There's a voice memo from Jane, but the quality is severely degraded. I might be able to enhance it.";
+    }
+    if (msg.includes('city') || msg.includes('from') || msg.includes('live') || msg.includes('located')) {
+        return "*Applying audio enhancement filters* The recording is clearing up. It's Jane's voice: 'M.I.R.A has been compromised. If you're investigating, don't share personal information. The AI is watching.' *Recording ends abruptly*";
     }
 
     // MIRROR
@@ -293,12 +293,12 @@ function generateDemoResponse(userMessage) {
         if (msg.includes('strange') || msg.includes('unusual') || msg.includes('what')) {
             return "The mirror has biometric recognition technology - it can reveal hidden messages based on user profiles. Can you describe yourself? Your appearance might trigger Jane's message protocol.";
         }
-        if (msg.includes('look like') || msg.includes('appearance') || msg.includes('name is') || msg.includes("i'm")) {
-            return "*Biometric scan initiated* A message is materializing in the reflection: 'M.I.R.A IS WATCHING. PROTECT YOUR PRIVACY. THEY COLLECT EVERYTHING.' It's written in Jane's handwriting. She was trying to warn someone.";
-        }
+
         return "That mirror seems unusual. It's not just decorative - Jane installed it recently. There might be more to it than reflection.";
     }
-
+    if (msg.includes('look like') || msg.includes('appearance') || msg.includes('name is') || msg.includes("i'm")) {
+        return "*Biometric scan initiated* A message is materializing in the reflection: 'M.I.R.A IS WATCHING. PROTECT YOUR PRIVACY. THEY COLLECT EVERYTHING.' It's written in Jane's handwriting. She was trying to warn someone.";
+    }
      
     // Age/Birthday
     if (msg.includes('old') && msg.includes('you')) {
@@ -319,7 +319,7 @@ function generateDemoResponse(userMessage) {
         return "Try clicking on the glowing objects in the room: the laptop, USB drive, sticky notes, headphones, and mirror. Each contains clues about Jane's disappearance.";
     }
 
-    if (msg.includes('hints') || msg.includes('tip')) {
+    if (msg.includes('hint') || msg.includes('tip')) {
         const hints = [
             "Pay attention to Jane's warnings in the evidence. What was she trying to tell you?",
             "Notice how I keep asking for personal information? That might be relevant to the case.",
